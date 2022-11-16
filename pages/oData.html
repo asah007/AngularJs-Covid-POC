@@ -1,0 +1,39 @@
+<div class="container-fluid">
+
+    <div class="m-3">
+        <div class="text-center">
+            <div class="btn-group">
+                <button type="button btn-sm" class="btn btn-success">Filter based on Rating</button>
+                <select class="form-select form-select-sm" aria-label="Default select example"
+                       ng-model="selectedRating"
+                       ng-change="selectRating(selectedRating)">
+                    <option selected>Open this select menu</option>
+                    <option value="0">All</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div style="display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin-top:10px" >
+            <div class="product-card d-flex justify-content-between border border-light rounded border border-3 p-2 m-1 w-50 shadow p-3 mb-2 bg-body rounded"  style="background-color:aliceblue!important"
+      ng-repeat="prod in products">
+                <div class="card-body">
+                    <h5 class="card-title">{{prod.Name}}</h5>
+                    <span class="badge rounded-pill bg-primary">$ {{prod.Price}}</span>
+                    <span class="badge bg-info text-dark">{{prod.ReleaseDate | date : "medium"}}</span>
+                    <span class="badge bg-secondary">{{prod.Rating}}</span>
+                    <p class="card-text">{{prod.Description}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -101,5 +101,41 @@ angular.module("myModule").service("ApiService", [
       return deferred.promise;
     }
 
+    this.getODataProducts = function(){
+    
+      var deferred = $q.defer();
+      $http({
+        method: "GET",
+        url: "https://services.odata.org/V3/(S(qzuttktpdu4t4ahxu22biwzo))/OData/OData.svc/Products?$format=json",
+        cache: true,
+      })
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        .error(function (msg) {
+          deferred.reject(msg);
+        });
+      return deferred.promise;
+
+    }
+
+    this.getFilterRatings = function(rating){
+    
+      var deferred = $q.defer();
+      $http({
+        method: "GET",
+        url: "https://services.odata.org/OData/OData.svc/Products?$filter=Rating eq "+rating+"&$format=json",
+        cache: true,
+      })
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        .error(function (msg) {
+          deferred.reject(msg);
+        });
+      return deferred.promise;
+
+    }
+
   },
 ]);
