@@ -14,7 +14,11 @@ app.config([
       .when("/oData", {
         templateUrl: "pages/oData.html",
         controller: "ODataCtrl",
-      });
+      })
+      .when("/oData-crud", {
+        templateUrl: "pages/oData-crud.html",
+        controller: "CrudCtrl",
+      });;
   },
 ]);
 
@@ -128,6 +132,51 @@ app.controller("ProductCtrl", function ($scope, ApiService) {
 
 app.controller("ODataCtrl", function ($scope, ApiService) {
   $scope.products = [];
+  $scope.currentTop = 2;
+  $scope.currentSkip = 0;
+
+
+  $scope.getCount = function(){
+    ApiService.getCount().then((res)=>{
+        console.log(res);
+        $scope.count = res
+    }).catch((err)=>{
+    })
+  }
+
+
+  $scope.nextData = function(val){
+     switch(val){
+       case 1:
+       $scope.currentSkip = 0; 
+       getData($scope.currentTop,$scope.currentSkip)
+       break;
+       case 2:
+       $scope.currentSkip = 2;  
+       getData($scope.currentTop,$scope.currentSkip)
+       break;
+       case 3:
+       $scope.currentSkip = 4;  
+       getData($scope.currentTop,$scope.currentSkip) 
+       break;
+       case 'next':
+       $scope.currentSkip =  $scope.currentSkip + 2; 
+       getData($scope.currentTop,$scope.currentSkip) 
+       break;
+     }
+   
+  }
+
+  function getData(top,skip){
+    ApiService.getODataProducts(top,skip)
+    .then(function (response) {
+      console.log(response);
+      $scope.products = response.value;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   $scope.selectRating = function (rating) {
     console.log(rating);
@@ -150,12 +199,45 @@ app.controller("ODataCtrl", function ($scope, ApiService) {
     }
   };
 
-  ApiService.getODataProducts()
-    .then(function (response) {
-      console.log(response);
-      $scope.products = response.value;
+  $scope.orderByPrice = function(){
+    ApiService.orderByPrice().then((response)=>{
+         $scope.products = response.value
+    }).catch((error)=>{
+
     })
-    .catch(function (error) {
-      console.log(error);
-    });
+  }
+
+  getData($scope.currentTop,$scope.currentSkip);
+ 
 });
+
+
+app.controller("CrudCtrl",function($scope,ApiService){
+
+    $scope.categories = [];
+
+    $scope.addCategory = function(){
+      console.log({...$scope.cat,"odata.type":"ODataDemo.Category"});
+      ApiService.addCategory($scope.cat).then((response)=>{
+          console.log(response);
+      }).catch((error)=>{
+
+      })
+
+    }
+
+    $scope.delete = function(id){
+
+      ApiService.deleteCategory(id).then((response)=>{
+        console.log(response);
+    }).catch((error)=>{
+
+    })
+    }
+
+    ApiService.getCategories().then((response)=>{
+       $scope.categories = response.value;
+    }).catch((error)=>{
+
+    })
+})

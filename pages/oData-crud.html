@@ -1,0 +1,56 @@
+
+
+<div class="container-fluid">
+
+    <div class="m-3">
+        <div class="text-center">
+            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addCategory">Add New Category</button>
+        </div>
+        <div style="display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin-top:10px" >
+            <div class="product-card d-flex justify-content-between border border-light rounded border border-3 p-2 m-1 w-50 shadow p-3 mb-2 bg-body rounded"  style="background-color:aliceblue!important"
+      ng-repeat="cat in categories">
+                <div class="card-body">
+                    <h5 class="card-title">ID: {{cat.ID}}</h5>
+                    <p class="card-text">Name: {{cat.Name}}</p>
+                    <button  type="button" class="btn btn-warning btn-sm" ng-click="delete(cat.ID)">Delete</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="addCategoryLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form name="addCat">
+          <div class="mb-2">
+            <label class="form-label">Id</label>
+            <input type="number" class="form-control" id="id" ng-model="cat.ID" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" ng-model="cat.Name" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-sm"  ng-click="addCategory()" ng-disabled="addCat.$invalid" data-bs-dismiss="modal">Save</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
