@@ -1,0 +1,13 @@
+
+<div>
+    <img src={{prod.image}} style="width:100px" class="card-img-top" alt="...">
+</div>
+<div class="card-body">
+    <h5 class="card-title">{{prod.title}}</h5>
+    <span class="badge rounded-pill bg-primary">$ {{prod.price}}</span>
+    <span class="badge bg-info text-dark">{{prod.category}}</span>
+    <span class="badge bg-secondary">{{prod.rating.rate}}</span>
+    <p class="card-text">{{prod.description}}</p>
+    <button  class="btn btn-warning btn-sm" ng-click="addEditModal(prod)" data-bs-toggle="modal" data-bs-target="#editProductModal">Update</button>
+    <button  class="btn btn-danger btn-sm" ng-click="deleteProductModal(prod.id)" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Delete</button>
+</div>

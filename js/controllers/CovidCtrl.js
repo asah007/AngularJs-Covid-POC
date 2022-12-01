@@ -1,6 +1,5 @@
 
-
-angular.module("myModule",[]).controller("CovidCtrl",['$scope','ApiService',function ($scope, ApiService) {
+var CovidCtrl = function ($scope, ApiService) {
     $scope.data = {};
     $scope.dataByCountry = {};
     $scope.countryName = "";
@@ -10,12 +9,14 @@ angular.module("myModule",[]).controller("CovidCtrl",['$scope','ApiService',func
     $scope.showErrMsg = false;
 
     setTimeout(() => {
+      // Get overall covid details //
       ApiService.getCovidDetails().then(function (response) {
         $scope.data = response;
         $scope.showData = true;
       });
     }, 500);
 
+    // Get Covid Details on country search //
     $scope.getByCountry = function () {
       $scope.errorMsg = "";
       $scope.showErrMsg = false;
@@ -35,5 +36,5 @@ angular.module("myModule",[]).controller("CovidCtrl",['$scope','ApiService',func
           });
       }, 2000);
     };
-  }]);
+  };
   

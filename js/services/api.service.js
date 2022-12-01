@@ -86,7 +86,6 @@ angular.module("myModule").service("ApiService", [
     }
 
     this.deleteProduct = function(id){
-      console.log("Service ---- "+ id);
       var deferred = $q.defer();
       $http({
         url: ApiConfig.deleteProductUrl(id),
@@ -106,7 +105,7 @@ angular.module("myModule").service("ApiService", [
       var deferred = $q.defer();
       $http({
         method: "GET",
-        url: "https://services.odata.org/V3/(S(qzuttktpdu4t4ahxu22biwzo))/OData/OData.svc/Products?$select=ID,Name,Description,Rating,ReleaseDate,Price&$top="+top+"&$skip="+skip+"&$format=json",
+        url: ApiConfig.getODataProducts(top,skip),
         cache: true,
       })
         .success(function (data) {
@@ -120,11 +119,10 @@ angular.module("myModule").service("ApiService", [
     }
 
     this.getFilterRatings = function(rating){
-    
       var deferred = $q.defer();
       $http({
         method: "GET",
-        url: "https://services.odata.org/OData/OData.svc/Products?$filter=Rating eq "+rating+"&$format=json",
+        url: ApiConfig.filterRatings(rating),
         cache: true,
       })
         .success(function (data) {
@@ -141,7 +139,7 @@ angular.module("myModule").service("ApiService", [
       var deferred = $q.defer();
       $http({
         method: "GET",
-        url: "https://services.odata.org/OData/OData.svc/Products?$orderby=Price asc&$format=json",
+        url: ApiConfig.orderByPrice,
         cache: true,
       })
         .success(function (data) {
@@ -157,7 +155,7 @@ angular.module("myModule").service("ApiService", [
       var deferred = $q.defer();
       $http({
         method: "GET",
-        url: "https://services.odata.org/OData/OData.svc/Products/$count",
+        url: ApiConfig.getCount,
         cache: true,
       })
         .success(function (data) {
@@ -173,7 +171,7 @@ angular.module("myModule").service("ApiService", [
       var deferred = $q.defer();
       $http({
         method: "GET",
-        url: "https://services.odata.org/V3/(S(qzuttktpdu4t4ahxu22biwzo))/OData/OData.svc/Categories?$format=json",
+        url: ApiConfig.getCategories,
         cache: true,
       })
         .success(function (data) {
@@ -188,9 +186,8 @@ angular.module("myModule").service("ApiService", [
 
     this.addCategory = function(cat){
       var deferred = $q.defer();
-      console.log({...cat,"odata.type":"ODataDemo.Category"});
       $http({
-        url: "https://services.odata.org/V3/(S(qzuttktpdu4t4ahxu22biwzo))/OData/OData.svc/Categories",
+        url: ApiConfig.addCategory,
         method: "POST",
         data: {...cat,"odata.type":"ODataDemo.Category"}
       })
@@ -204,10 +201,9 @@ angular.module("myModule").service("ApiService", [
     }
 
     this.deleteCategory = function(id){
-      console.log("Service ---- "+ id);
       var deferred = $q.defer();
       $http({
-        url: "https://services.odata.org/V3/(S(qzuttktpdu4t4ahxu22biwzo))/OData/OData.svc/Categories("+id+")?$format=json",
+        url: ApiConfig.deleteCategory(id),
         method: "DELETE",
       })
         .success(function (data) {

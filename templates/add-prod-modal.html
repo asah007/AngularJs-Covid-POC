@@ -1,0 +1,42 @@
+
+
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form name="addProdForm">
+          <div class="mb-2">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" ng-model="product.title" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" id="desc" rows="3" ng-model="product.description" required></textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" ng-model="product.price" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Category</label>
+            <input type="text" class="form-control" id="cat" ng-model="product.category" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Image Url</label>
+            <input type="text" class="form-control" id="img" ng-model="product.image" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-sm"  ng-click="addProduct()" ng-disabled="addProdForm.$invalid" data-bs-dismiss="modal">Add</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
